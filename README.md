@@ -31,6 +31,19 @@ Published `recharging-ledger@1.0` package used by `lapee-bundler-profile-recharg
 - Implementation ID: `arPd0tHsKdO1ODuypwxkgAtp7i5LQdw8yyQ6v9HBKVw`
 - Signer: `vZY2XY1RD9HIfWi8ift-1_DnHLDadZMWrufSh-_rKF0`
 
+Published updated `lapee-p4-bootstrap@1.0` package used by `lapee-bundler-profile-recharging.json`:
+
+- Spec ID: `RSQlLsmPZwwk7mxZuwMziGBFTMSTJT9OHm1xlq6MzrQ`
+- Implementation ID: `0ER8jwnxByvfp0IXfgI1U_nypaq9x_Y0-NGbB68Ii0Y`
+- Signer: `aYDOU6kEcE3lK7aA-gTmUKHTbLlQnZZXWpv1_i_Uq1U`
+
+Published updated `ao-payment@1.0` package used by `lapee-bundler-profile-recharging.json`:
+
+- Spec ID: `7eAMYQ9PG8esiP-XIz1UoP78aI1htNgdtHqSbNm94X4`
+- Implementation ID: `EJwu47Q0MK2DMjohTRX4kNYc7QLiXZmKq3s8QLTgTX4`
+- Signer: `aYDOU6kEcE3lK7aA-gTmUKHTbLlQnZZXWpv1_i_Uq1U`
+- Pre-push validation: `/home/fn/Dev/rani/aopayment-device/scripts/pre-push-test.sh`
+
 ## Profile Behavior
 
 Both profiles boot through `lapee-p4-bootstrap@1.0` and configure the paid bundler path through native P4.
@@ -42,7 +55,7 @@ The AO-payment-only profile disables remote device loading and settles native P4
 - `ao-payment@1.0` auto-withdraws the charged AO quantity to `bundler-beneficiary`.
 - `bundler-settlement@1.0` is no longer required for the immediate paid-bundle path.
 
-The recharging profile enables remote loading only for the published `recharging-ledger@1.0` package and sets:
+The recharging profile is explicit for base LapEE: all custom devices are resolved through the first `name-resolvers` entry and pinned in `trusted-devices`. It sets:
 
 - `p4-ledger-device`: `recharging-ledger@1.0`
 - `recharging-ledger-max`: `3000000000`
@@ -90,41 +103,49 @@ scripts/apply-profile-to-image.sh \
 
 For `lapee-bundler-profile-ng.json`, the device source should be baked into the image before profile application. That AO-payment-only profile does not fetch remote device code at runtime.
 
-For `lapee-bundler-profile-recharging.json`, bake the local bundler/AO-payment/P4 bootstrap devices into the image, then let the profile load only the pinned published `recharging-ledger@1.0` package at runtime.
+For `lapee-bundler-profile-recharging.json`, start from base LapEE and let the profile load the pinned published device packages. The profile explicitly resolves:
+
+- `ao-payment@1.0`
+- `arweave-byte-pricing@1.0`
+- `bundler-settlement@1.0`
+- `lapee-bundler-gc@1.0`
+- `lapee-p4-bootstrap@1.0`
+- `pricing-router@1.0`
+- `simple-oracle@1.0`
+- `recharging-ledger@1.0`
 
 ## Recharging Waterfall Proof
 
-The recharging profile was validated against a QEMU booted no-TME LapEE image on 2026-06-30.
+The current recharging profile was validated against a base no-TME LapEE image on 2026-06-30. This proof starts from the base image, injects only `lapee-bundler-profile-recharging.json`, remote-loads the pinned published packages, and posts real bundle items through `~bundler@1.0/tx`.
 
 - Profile: `lapee-bundler-profile-recharging.json`
-- Source image: `/home/fn/Dev/FWD/os/build/images/lapee-no-tme-p4-recharging-20260630-signed.img`
-- Profiled image: `/home/fn/Dev/FWD/os/build/images/lapee-no-tme-p4-recharging-profile-20260630-signed.img`
-- Combined device overlay: `/home/fn/Dev/FWD/os/build/hyperbeam-devices-recharging-20260630`
-- Preloaded device index: `MOZP68snhAaZzm21hp5VlIQqz_MRZBCBojqmnLYhwnQ`
-- Proof artifacts: `/home/fn/Dev/FWD/os/build/qemu-p4-recharging-20260630`
+- Source image: `/home/fn/Dev/FWD/os/build/images/lapee-no-tme-source-20260629.img`
+- Profiled image: `/home/fn/Dev/FWD/os/build/images/lapee-no-tme-source-recharging-explicit-aopay-profile-20260630.img`
+- Proof artifacts: `/home/fn/Dev/FWD/os/build/qemu-p4-recharging-explicit-aopay-20260630`
 
-Runtime profile evidence from boot attestation:
+Runtime profile evidence from `/~meta@1.0/info`:
 
 - `lapee-profile`: `aopayment-bundler-p4-recharging-waterfall`
 - `p4-ledger-device`: `recharging-ledger@1.0`
 - `load-remote-devices`: `true`
-- `trusted-device-signers`: `vZY2XY1RD9HIfWi8ift-1_DnHLDadZMWrufSh-_rKF0`
-- `ao-payment-ledger`: `22gMV7qKPiB9hljfYoTIuVXTf7zr1ZnuAegPU6LhqgA`
-- `ao-payment-deposit-address`: `TQjQDXAs5ZcdPV_qKUpxXACqFl_GIRnPZll_1wNt6O0`
+- `ao-payment-ledger`: `tL36CFGHhDF3mF8VzPgSgYxGzm3I43XdiV2u78yEFQQ`
+- `ao-payment-deposit-address`: `uh0PNH2uha0F91cFwOLQt_EX-CwvBBnJymlHGPU8HN4`
 
 QEMU waterfall proof summary:
 
-- Free/recharge item: `QJTO4FiwLSUTrFTv8jAlxLVUana4HACiVZ9mqrVGFbA`
-- Paid/fallback item: `TarlhXowf8jz2DmEIDd0M2WK8bsdQZyE6NxcjJxypxo`
-- Free quote: `2532316469`
+- Free/recharge item: `tHnxyRUUxLwktXvXMCGbpuZlkVR0i9VBNtDZbiATWw8`
+- Paid/fallback item: `3gJN1DeGNjFr8oydcjKJ4iZpC5_PM9LzD0iOCCfmmhw`
+- Free quote: `2540422550`
 - Recharge before: `3000000000`
-- Recharge after free item: `467693510`
-- Paid quote: `2532316469`
-- Payment message: `tZADcpuuzg7v-UKBH73sVLhhWh6d_dlhGIZLIlDe6Xc`
-- Payment slot: `2495981`
-- Payment quantity imported: `6064632938`
+- Recharge after free item: `459587559`
+- Paid quote: `2540422550`
+- Payment message: `bXp3vo4uX4cS0M50d00RxGpRpKSCgo3s3Rr9HRw8hLg`
+- Payment slot: `2496025`
+- Payment quantity imported: `6080845100`
 - Paid bundle status: `200`
-- Sender local ledger after ingest: `6064632938`
-- Sender local ledger after paid charge: `3532316469`
-- Ledger spent by fallback charge: `2532316469`
-- Beneficiary AO delta: `2532316469`
+- Sender local ledger after ingest: `6080845100`
+- Sender local ledger after paid charge: `3540422550`
+- Ledger spent by fallback charge: `2540422550`
+- Beneficiary AO delta: `2540422550`
+
+Earlier custom-overlay proof artifacts are retained at `/home/fn/Dev/FWD/os/build/qemu-p4-recharging-20260630`; they validated runtime behavior before the profile was corrected to explicitly pin every custom device for base LapEE.

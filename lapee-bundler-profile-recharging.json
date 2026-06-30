@@ -4,10 +4,19 @@
   "http-client-prefer-ipv4": true,
   "load-remote-devices": true,
   "trusted-device-signers": [
+    "q5Fcm0NJ34-ss3E1R9dgjGKLLA0B-KYw0J_6U-Pck6o",
+    "aYDOU6kEcE3lK7aA-gTmUKHTbLlQnZZXWpv1_i_Uq1U",
     "vZY2XY1RD9HIfWi8ift-1_DnHLDadZMWrufSh-_rKF0"
   ],
   "name-resolvers": [
     {
+      "ao-payment@1.0": "7eAMYQ9PG8esiP-XIz1UoP78aI1htNgdtHqSbNm94X4",
+      "arweave-byte-pricing@1.0": "LMByssb9jjrc2DUQOucor4t0Zni0JOViiY6PZmGgHRU",
+      "bundler-settlement@1.0": "Nu-wM8Pdq4r6MTOKYFXnM6Jn0vAeGI732l-TsOcmazY",
+      "lapee-bundler-gc@1.0": "obuc_4WtzF1vHZT17s3iV07O-qzgQuSAfmjECpehcYQ",
+      "lapee-p4-bootstrap@1.0": "RSQlLsmPZwwk7mxZuwMziGBFTMSTJT9OHm1xlq6MzrQ",
+      "pricing-router@1.0": "UH8LNK2WMtgVBhQ6YCkk5dPyKbp3hHsb9pWCznVfYNA",
+      "simple-oracle@1.0": "SGIOFvYoRKYIj3bC9_3Ggv2n0lNCOoSRrWJyHUrKeKg",
       "recharging-ledger@1.0": "mFnIcWlmBnyq8NMPQB3tIaqeoQJLNRcyoozEzGzE-a0"
     },
     {
@@ -64,7 +73,7 @@
   },
   "on": {
     "start": {
-      "device": "lapee-p4-bootstrap@1.0"
+      "device": "RSQlLsmPZwwk7mxZuwMziGBFTMSTJT9OHm1xlq6MzrQ"
     },
     "request": [
       {
@@ -73,6 +82,20 @@
     ]
   },
   "trusted-devices": {
+    "ao-payment@1.0": "EJwu47Q0MK2DMjohTRX4kNYc7QLiXZmKq3s8QLTgTX4",
+    "7eAMYQ9PG8esiP-XIz1UoP78aI1htNgdtHqSbNm94X4": "EJwu47Q0MK2DMjohTRX4kNYc7QLiXZmKq3s8QLTgTX4",
+    "arweave-byte-pricing@1.0": "XE8fg4poXwCYdMJm4uDFhlC3RQ7FuOKDtb8gSxbakm0",
+    "LMByssb9jjrc2DUQOucor4t0Zni0JOViiY6PZmGgHRU": "XE8fg4poXwCYdMJm4uDFhlC3RQ7FuOKDtb8gSxbakm0",
+    "bundler-settlement@1.0": "oeJGtUCutNdfszNuwGs0r7VW_inRhuFl_nDYraIRWjk",
+    "Nu-wM8Pdq4r6MTOKYFXnM6Jn0vAeGI732l-TsOcmazY": "oeJGtUCutNdfszNuwGs0r7VW_inRhuFl_nDYraIRWjk",
+    "lapee-bundler-gc@1.0": "AKXhtDqE_U7L275NMuZAqLvJm6rREgHajkfez1ugLTk",
+    "obuc_4WtzF1vHZT17s3iV07O-qzgQuSAfmjECpehcYQ": "AKXhtDqE_U7L275NMuZAqLvJm6rREgHajkfez1ugLTk",
+    "lapee-p4-bootstrap@1.0": "0ER8jwnxByvfp0IXfgI1U_nypaq9x_Y0-NGbB68Ii0Y",
+    "RSQlLsmPZwwk7mxZuwMziGBFTMSTJT9OHm1xlq6MzrQ": "0ER8jwnxByvfp0IXfgI1U_nypaq9x_Y0-NGbB68Ii0Y",
+    "pricing-router@1.0": "e1T6L5u7dgj6nMkj3z7pUQjBrMWQdahm5xy5PV5tXOg",
+    "UH8LNK2WMtgVBhQ6YCkk5dPyKbp3hHsb9pWCznVfYNA": "e1T6L5u7dgj6nMkj3z7pUQjBrMWQdahm5xy5PV5tXOg",
+    "simple-oracle@1.0": "cEwxPCEk3WIYbWmeXOKlYsvLLBUKeB44P5F2y2FftaI",
+    "SGIOFvYoRKYIj3bC9_3Ggv2n0lNCOoSRrWJyHUrKeKg": "cEwxPCEk3WIYbWmeXOKlYsvLLBUKeB44P5F2y2FftaI",
     "recharging-ledger@1.0": "arPd0tHsKdO1ODuypwxkgAtp7i5LQdw8yyQ6v9HBKVw",
     "mFnIcWlmBnyq8NMPQB3tIaqeoQJLNRcyoozEzGzE-a0": "arPd0tHsKdO1ODuypwxkgAtp7i5LQdw8yyQ6v9HBKVw"
   }
