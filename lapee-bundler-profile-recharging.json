@@ -34,9 +34,9 @@
   "ao-payment-ledger-path": "/ledger~node-process@1.0",
   "p4-ledger-device": "recharging-ledger@1.0",
   "recharging-ledger-max": 3000000000,
-  "recharging-ledger-recharge": 1000,
+  "recharging-ledger-recharge": 34722,
   "recharging-ledger-period": 1,
-  "recharging-ledger-grace": 0,
+  "recharging-ledger-grace": 124999200,
   "recharging-ledger-fallback": {
     "device": "ao-payment@1.0",
     "ledger-path": "/ledger~node-process@1.0",
