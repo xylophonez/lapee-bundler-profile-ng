@@ -5,6 +5,7 @@ This repo contains the working profile JSON for the native P4 AO-paid LapEE bund
 It intentionally tracks only:
 
 - `lapee-bundler-profile-ng.json` - the AO-payment-only native P4 profile.
+- `lapee-bundler-profile-paid.json` - the AO-payment-only native P4 profile using the current published remote device packages.
 - `lapee-bundler-profile-recharging.json` - the recharging-ledger waterfall profile.
 - `README.md` - the manifest for the profile, source repos, and proof run.
 
@@ -50,7 +51,9 @@ Published updated `ao-payment@1.0` package used by `lapee-bundler-profile-rechar
 
 Both profiles boot through `lapee-p4-bootstrap@1.0` and configure the paid bundler path through native P4.
 
-The AO-payment-only profile disables remote device loading and settles native P4 charges directly through `ao-payment@1.0`.
+The baked-local AO-payment-only profile disables remote device loading and settles native P4 charges directly through `ao-payment@1.0`.
+
+The remote AO-payment-only profile, `lapee-bundler-profile-paid.json`, uses the same published package pins as the recharging profile, but does not set `p4-ledger-device` to `recharging-ledger@1.0` and does not include any `recharging-ledger-*` settings. It is the paid-only profile for base LapEE when the current device set should be loaded from the network without sponsoring recharge balance.
 
 - `ao-payment@1.0` imports AO token payments into the local P4 ledger.
 - Native P4 charges debit that local ledger when `~bundler@1.0/item` is posted.
